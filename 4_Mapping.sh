@@ -10,7 +10,7 @@ module purge
 module load BWA/0.7.17-foss-2018b
 module load SAMtools/1.15-GCC-11.2.0
 path_list_fastq="/scratch_isilon/groups/compgen/iruiz/EEP_gorillas/FTAcards_Hairs/FASTQ/CGLILLUMINA_34/fastqs"
-fastq=$(awk -v line=&quot;$SLURM_ARRAY_TASK_ID&quot; &#39;NR==line {print $0}&#39; ${path_list_fastq})
+fastq=$(awk -v line=$SLURM_ARRAY_TASK_ID 'NR==line {print $0}' ${path_list_fastq})
 
 IN="/scratch_isilon/groups/compgen/easensi/Captive_TFM/FastP_trim"
 IN_2="/scratch/devel/malvarest/refs/GRCh38"
