@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH -J Coverage #job name
+#SBATCH -q long #maximum limits available for the job
+#SBATCH -c 4 #cpu per task
+#SBATCH --mem 100G #memory pool for all cores MB
+#SBATCH -o Coverage_%a.out #STDOUT
+#SBATCH -e Coverage_%a.err #STDERR
+#SBATCH -a 1-3 #number of samples
+
+module purge
+module load mosdepth/0.3.3-GCC-11.2.0
+
+path_list_fastq="/scratch_isilon/groups/compgen/easensi/Captive_TFM/MergedBam/samples_ids"
+
+fastq=$(awk -v line="$SLURM_ARRAY_TASK_ID" 'NR==line {print $0}' ${path_list_fastq})
+OUT="/scratch_isilon/groups/compgen/easensi/Captive_TFM/Coverage"; mkdir -p $OUT
+bam="/scratch_isilon/groups/compgen/easensi/Captive_TFM/Filter"
+
+mosdepth -n --fast-mode ${OUT}/${fastq}_mosdepth.txt ${bam}/${fastq}_filtered_2.bam
