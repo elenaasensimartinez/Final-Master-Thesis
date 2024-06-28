@@ -5,10 +5,11 @@
 #SBATCH --mem-per-cpu 45G #memory pool for all cores MB
 #SBATCH -e ngsadmix_def_%a_rerun1.err
 #SBATCH -o ngsadmix_def_%a_rerun1.out
-#SBATCH -a 1-6
+#SBATCH -a 1-6 #array number
 
-seq="/scratch_isilon/groups/compgen/easensi/Captive_TFM/Downsampling_bams/merged_downsampled_output.beagle.gz"
-kfile="/scratch_isilon/groups/compgen/easensi/NGS_Admix/NGSadmix/k_file.txt"
-Ks=$(awk -v line="$SLURM_ARRAY_TASK_ID" 'NR==line {print $0}' ${kfile})
+seq="/scratch_isilon/groups/compgen/easensi/Captive_TFM/Downsampling_bams/merged_downsampled_output.beagle.gz" #path to merged beagle file
+kfile="/scratch_isilon/groups/compgen/easensi/NGS_Admix/NGSadmix/k_file.txt" #path to file with measured K values
+Ks=$(awk -v line="$SLURM_ARRAY_TASK_ID" 'NR==line {print $0}' ${kfile}) 
 
+                                        ### Admixture analysis ###
 ./NGSadmix -likes ${seq} -K ${Ks} -o NGSadmix_K${Ks}_rerun1 -minMaf 0.004 -seed 1 -tol 0.00005 
