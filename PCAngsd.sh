@@ -6,12 +6,14 @@
 #SBATCH -o PCA.out #STDOUT
 #SBATCH -e PCA.err #STDERR
 
-inputbeaglegz="/scratch_isilon/groups/compgen/easensi/Captive_TFM/Downsampling_bams/merged_downsampled_output.beagle.gz"
-OUT="/scratch_isilon/groups/compgen/easensi/Captive_TFM/PCA_all"; mkdir -p $OUT
+inputbeaglegz="/scratch_isilon/groups/compgen/easensi/Captive_TFM/Downsampling_bams/merged_downsampled_output.beagle.gz" #path to merged beagle file
+OUT="/scratch_isilon/groups/compgen/easensi/Captive_TFM/PCA_all"; mkdir -p $OUT #path to saving folder
 pcangsd="${OUT}/pcangsd"
 
 module purge
 module load angsd/0.935-GCC-10.2.0
 module load Python/3.10.8-GCCcore-12.2.0
-pip3 install --user -r ~jprado/bin/pcangsd_folder/requirements.txt
-~jprado/bin/pcangsd -b ${inputbeaglegz} -o ${pcangsd}
+
+                        ### PCA analysis ###
+pip3 install --user -r ~easensi/bin/pcangsd_folder/requirements.txt
+~easensi/bin/pcangsd -b ${inputbeaglegz} -o ${pcangsd}
