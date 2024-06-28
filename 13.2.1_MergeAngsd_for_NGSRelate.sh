@@ -9,7 +9,7 @@
 chromfile="/scratch_isilon/groups/compgen/easensi/NGS_relate/western_lowland" #path to file with chromosome names
 out="/scratch_isilon/groups/compgen/easensi/NGS_relate/western_lowland/merged_western_lowland_relate.gz" #path to saving folder
 
-###before running this script, a file with chr1 information must be saved in merged_western_lowland_relate.gz ###
+### before running this script, a file with chr1 information must be saved in merged_western_lowland_relate.gz ###
 ### obtention of a merged file with all beagle files of all chromosomes ###
 for CHR in `seq 2 24`
 do
